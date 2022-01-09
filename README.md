@@ -3,6 +3,10 @@ archiveByLabel
 [label]: https://support.google.com/drive/answer/2375091
 [query]: https://support.google.com/mail/answer/7190
 [drive]: https://drive.google.com
+[screenshot]: add-on.png
+[testing]: https://developers.google.com/apps-script/add-ons/how-tos/testing-workspace-addons
+
+Status: `testing`
 
 Gmail add-on to archive attachments of selected messages to a labeled folder in Google Drive.
 
@@ -15,6 +19,8 @@ Quickstart
 > NOTE: Depending on how many results your query has, it might take a while to complete. In the mean time,
 > login to [drive] to check on the script's progress.
 
+![Gmail Add-on][screenshot]
+
 Related links
 ---
-[#label][label] [#query][query]
+[#label][label] [#query][query] [#testing][testing]
