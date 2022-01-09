@@ -35,12 +35,40 @@ function archiveByLabel(input) {
 }
 
 function archiveDirectory(label = DEFAULTS.label) {
+    var path = label.split("/");
+    var folderId;
+    var next;
     try {
-        var folderId = DriveApp.getFoldersByName(label).next().getId();
+        path.forEach(function (subdir, index) {
+            next = subdir;
+            if (index == 0) {
+                folderId = DriveApp.getFoldersByName(subdir).next().getId();
+            } else {
+                folderId = DriveApp.getFolderById(folderId).getFoldersByName(subdir).next().getId();
+            }
+        });
     } catch (e) {
-        Logger.log(e)
-        Logger.log("Creating directory: " + label)
-        var folderId = DriveApp.createFolder(label).getId();
+        Logger.log(e);
+        if (DriveApp.getFoldersByName(next).hasNext()) {
+            folderId = DriveApp.getFoldersByName(next).next().getId()
+        }
+        var exists = path.splice(0, path.indexOf(next));
+        Logger.log("Creating directory: " + path)
+        Logger.log(exists.toString());
+        path.forEach(function (subdir) {
+            Logger.log(subdir);
+            var current = DriveApp.getFoldersByName(subdir);
+            if (!folderId && !current.hasNext()) {
+                Logger.log("creating in root: " + subdir)
+                folderId = DriveApp.createFolder(subdir).getId();
+            } else if (folderId) {
+                current = DriveApp.getFolderById(folderId);
+                folderId = current.createFolder(subdir).getId();
+            } else if (DriveApp.getFolderById(folderId).getName() != subdir && !DriveApp.getFolderById(folderId)) {
+                Logger.log("creating in directory [%s]: ".replace("%s", DriveApp.getFolderById(folderId).getName()) + subdir)
+                folderId = DriveApp.getFolderById(folderId).createFolder(subdir).getId();
+            }
+        });
     }
     return DriveApp.getFolderById(folderId);
 }
