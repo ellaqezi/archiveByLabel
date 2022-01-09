@@ -1,0 +1,47 @@
+{
+  "addOns": {
+    "common": {
+      "homepageTrigger": {
+        "runFunction": "onDefaultHomePageOpen",
+        "enabled": true
+      },
+      "layoutProperties": {
+        "primaryColor": "#41f470",
+        "secondaryColor": "#3c4043"
+      },
+      "logoUrl": "https://avatars.githubusercontent.com/u/6282235?v=4",
+      "name": "Save Attachments to Drive",
+      "openLinkUrlPrefixes": [
+        "https://mail.google.com/",
+        "https://script.google.com/a/google.com/d/",
+        "https://drive.google.com/a/google.com/file/d/"
+      ],
+      "useLocaleFromApp": true
+    },
+    "gmail": {
+      "contextualTriggers": [
+        {
+          "unconditional": {},
+          "onTriggerFunction": "onDefaultHomePageOpen"
+        }
+      ]
+    }
+  },
+  "timeZone": "Europe/Berlin",
+  "dependencies": {
+    "enabledAdvancedServices": [
+      {
+        "userSymbol": "Gmail",
+        "version": "v1",
+        "serviceId": "gmail"
+      },
+      {
+        "userSymbol": "Drive",
+        "version": "v2",
+        "serviceId": "drive"
+      }
+    ]
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8"
+}
